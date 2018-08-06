@@ -1,4 +1,5 @@
 import React,{ Component} from 'react'
+import {Link} from 'react-router-dom';
 import Book from './Book'
  import * as BooksAPI from '../BooksAPI'
 
@@ -21,7 +22,7 @@ class SearchBook extends Component{
         }else {
           let checkForShelfs=data.map(book=>{
             for(var i=0;i<this.props.shelfedBooks.length;i++){
-              if(this.props.shelfedBooks[i].id==book.id){
+              if(this.props.shelfedBooks[i].id===book.id){
                 book.shelf=this.props.shelfedBooks[i].shelf;
               }
             }
@@ -40,7 +41,8 @@ class SearchBook extends Component{
     return(
         <div className="search-books">
           <div className="search-books-bar">
-            <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+          <Link className="close-search" to="/">Close</Link>
+          
             <div className="search-books-input-wrapper">
               {/*
                 NOTES: The search from BooksAPI is limited to a particular set of search terms.

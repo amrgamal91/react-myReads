@@ -1,8 +1,8 @@
 import React from 'react'
-import Book from './components/Book'
 import BookShelf from './components/BookShelf'
 import * as BooksAPI from './BooksAPI'
 import SearchBook from './components/SearchBook'
+import {Link} from 'react-router-dom';
 import {Route} from 'react-router-dom';
 import './App.css'
 
@@ -40,11 +40,7 @@ handleShelfChange(book,shelf){
   render() {
     return (
       <div className="app">
-      <SearchBook
-        sendShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}
-        shelfedBooks={this.state.books}
-      />
-
+        <Route path="/" exact render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -73,9 +69,18 @@ handleShelfChange(book,shelf){
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to="/search">Add a book</Link>
             </div>
+
           </div>
+        )}/>
+
+        <Route path="/search" render={({history}) => (
+          <SearchBook
+            sendShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}
+            shelfedBooks={this.state.books}
+          />
+        )}/>
 
       </div>
     )
